@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
-  "name": "Sangoma Form Helper",
+  "name": "Salesforce Devops Form Helper",
   "version": "1.595",
-  "description": "Adds a guided form popup for Sangoma subject field",
+  "description": "Adds a guided form popup for Salesforce Devops subject field",
   "permissions": [
     "activeTab",
     "storage"

@@ -1,6 +1,6 @@
 // Wait for the page to load
 function initializeExtension() {
-  console.log('Sangoma Form Helper: Initializing...');
+  console.log('Salesforce Devops Form Helper: Initializing...');
   
   // Find the subject input field
   const findSubjectInput = () => {
@@ -16,11 +16,11 @@ function initializeExtension() {
     
     if (subjectInput) {
       clearInterval(tryInit);
-      console.log('Sangoma Form Helper: Found input field');
+      console.log('Salesforce Devops Form Helper: Found input field');
       addHelperButton(subjectInput);
     } else if (retries++ > maxRetries) {
       clearInterval(tryInit);
-      console.log('Sangoma Form Helper: Could not find subject input field after retries');
+      console.log('Salesforce Devops Form Helper: Could not find subject input field after retries');
     }
   }, 1000);
 }
@@ -28,21 +28,21 @@ function initializeExtension() {
 // Add a helper button next to the input field
 function addHelperButton(inputElement) {
   // Check if button already exists
-  if (document.querySelector('.sangoma-helper-button')) {
-    console.log('Sangoma Form Helper: Button already exists');
+  if (document.querySelector('.Salesforce Devops-helper-button')) {
+    console.log('Salesforce Devops Form Helper: Button already exists');
     return;
   }
   
-  console.log('Sangoma Form Helper: Adding button');
+  console.log('Salesforce Devops Form Helper: Adding button');
   
   // Create a wrapper div for the button
   const buttonWrapper = document.createElement('div');
-  buttonWrapper.className = 'sangoma-helper-button-wrapper';
+  buttonWrapper.className = 'Salesforce Devops-helper-button-wrapper';
   
   // Create button
   const button = document.createElement('button');
   button.type = 'button';
-  button.className = 'sangoma-helper-button';
+  button.className = 'Salesforce Devops-helper-button';
   button.innerHTML = `
     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
       <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
@@ -54,7 +54,7 @@ function addHelperButton(inputElement) {
   
   // Add click handler
   button.addEventListener('click', (e) => {
-    console.log('Sangoma Form Helper: Button clicked');
+    console.log('Salesforce Devops Form Helper: Button clicked');
     e.preventDefault();
     e.stopPropagation();
     showFormModal(inputElement);
@@ -80,16 +80,16 @@ function addHelperButton(inputElement) {
   // Reposition periodically (in case of dynamic layout changes)
   setInterval(positionButton, 1500);
   
-  console.log('Sangoma Form Helper: Button added successfully');
+  console.log('Salesforce Devops Form Helper: Button added successfully');
 }
 
 // Create and show the modal form
 async function showFormModal(targetInput) {
-  console.log('Sangoma Form Helper: Opening modal');
+  console.log('Salesforce Devops Form Helper: Opening modal');
   
   // Don't create multiple modals
-  if (document.querySelector('.sangoma-form-overlay')) {
-    console.log('Sangoma Form Helper: Modal already open');
+  if (document.querySelector('.Salesforce Devops-form-overlay')) {
+    console.log('Salesforce Devops Form Helper: Modal already open');
     return;
   }
 
@@ -102,7 +102,7 @@ async function showFormModal(targetInput) {
     'teamMembers'
   ]);
   
-  console.log('Sangoma Form Helper: Settings loaded', {
+  console.log('Salesforce Devops Form Helper: Settings loaded', {
     hasJiraUrl: !!settings.jiraUrl,
     hasJiraEmail: !!settings.jiraEmail,
     hasJiraToken: !!settings.jiraToken
@@ -111,7 +111,7 @@ async function showFormModal(targetInput) {
   // Fetch Jira tickets via background script to avoid CORS
   let projectOptions = '';
   if (settings.jiraUrl && settings.jiraEmail && settings.jiraToken) {
-    console.log('Sangoma Form Helper: Requesting Jira tickets from background script...');
+    console.log('Salesforce Devops Form Helper: Requesting Jira tickets from background script...');
     try {
       const response = await chrome.runtime.sendMessage({
         action: 'fetchJiraTickets',
@@ -119,33 +119,33 @@ async function showFormModal(targetInput) {
       });
       
       if (response.success && response.tickets && response.tickets.length > 0) {
-        console.log('Sangoma Form Helper: Received', response.tickets.length, 'tickets from background');
+        console.log('Salesforce Devops Form Helper: Received', response.tickets.length, 'tickets from background');
         projectOptions = response.tickets.map(ticket => 
           `<option value="${ticket.display}">${ticket.display}</option>`
         ).join('');
-        console.log('Sangoma Form Helper: Using Jira tickets for dropdown');
+        console.log('Salesforce Devops Form Helper: Using Jira tickets for dropdown');
       } else if (!response.success) {
-        console.error('Sangoma Form Helper: Error from background:', response.error);
-        console.log('Sangoma Form Helper: JIRA connection failed, falling back to defaults. Error:', response.error);
+        console.error('Salesforce Devops Form Helper: Error from background:', response.error);
+        console.log('Salesforce Devops Form Helper: JIRA connection failed, falling back to defaults. Error:', response.error);
       } else {
-        console.log('Sangoma Form Helper: No tickets returned from Jira');
+        console.log('Salesforce Devops Form Helper: No tickets returned from Jira');
       }
     } catch (error) {
-      console.error('Sangoma Form Helper: Failed to fetch Jira tickets:', error);
-      console.log('Sangoma Form Helper: JIRA fetch failed, using default options. Make sure:', 
+      console.error('Salesforce Devops Form Helper: Failed to fetch Jira tickets:', error);
+      console.log('Salesforce Devops Form Helper: JIRA fetch failed, using default options. Make sure:', 
         '1. JIRA URL is correct',
         '2. Email and API token are valid',
         '3. Your JIRA user has API access enabled'
       );
     }
   } else {
-    console.log('Sangoma Form Helper: Jira not configured, using defaults');
-    console.log('Sangoma Form Helper: To enable JIRA integration, configure settings in the extension options');
+    console.log('Salesforce Devops Form Helper: Jira not configured, using defaults');
+    console.log('Salesforce Devops Form Helper: To enable JIRA integration, configure settings in the extension options');
   }
   
   // Use default projects if Jira fetch failed or not configured
   if (!projectOptions) {
-    console.log('Sangoma Form Helper: Using default project options');
+    console.log('Salesforce Devops Form Helper: Using default project options');
     projectOptions = `
       <option value="SF-1234 New fields in Accounts">SF-1234 New fields in Accounts</option>
       <option value="SF-2156 Contact merge functionality">SF-2156 Contact merge functionality</option>
@@ -165,9 +165,9 @@ async function showFormModal(targetInput) {
     nameOptions = members.map(name => 
       `<option value="${name.trim()}">${name.trim()}</option>`
     ).join('');
-    console.log('Sangoma Form Helper: Using custom team members:', members.length);
+    console.log('Salesforce Devops Form Helper: Using custom team members:', members.length);
   } else {
-    console.log('Sangoma Form Helper: Using default team members');
+    console.log('Salesforce Devops Form Helper: Using default team members');
     // Default names
     nameOptions = `
       <option value="Ken Brill">Ken Brill</option>
@@ -176,43 +176,43 @@ async function showFormModal(targetInput) {
 
   // Create overlay
   const overlay = document.createElement('div');
-  overlay.className = 'sangoma-form-overlay';
+  overlay.className = 'Salesforce Devops-form-overlay';
   
   // Create modal
   const modal = document.createElement('div');
-  modal.className = 'sangoma-form-modal';
+  modal.className = 'Salesforce Devops-form-modal';
   
   // Create form HTML
   modal.innerHTML = `
-    <div class="sangoma-form-header">
-      <h2 id="sangoma-form-title">Subject Information</h2>
-      <div class="sangoma-form-hint" aria-hidden="true">Press ESC to close</div>
+    <div class="Salesforce Devops-form-header">
+      <h2 id="Salesforce Devops-form-title">Subject Information</h2>
+      <div class="Salesforce Devops-form-hint" aria-hidden="true">Press ESC to close</div>
     </div>
     
-    <div class="sangoma-form-group">
-      <label for="sangoma-project">Project *</label>
-      <select id="sangoma-project" required>
+    <div class="Salesforce Devops-form-group">
+      <label for="Salesforce Devops-project">Project *</label>
+      <select id="Salesforce Devops-project" required>
         <option value="">Select a project...</option>
         ${projectOptions}
       </select>
     </div>
     
-    <div class="sangoma-form-group">
-      <label for="sangoma-date">Date *</label>
-      <input type="date" id="sangoma-date" required>
+    <div class="Salesforce Devops-form-group">
+      <label for="Salesforce Devops-date">Date *</label>
+      <input type="date" id="Salesforce Devops-date" required>
     </div>
     
-    <div class="sangoma-form-group">
-      <label for="sangoma-name">Your Name *</label>
-      <select id="sangoma-name" required>
+    <div class="Salesforce Devops-form-group">
+      <label for="Salesforce Devops-name">Your Name *</label>
+      <select id="Salesforce Devops-name" required>
         <option value="">Select your name...</option>
         ${nameOptions}
       </select>
     </div>
     
-    <div class="sangoma-form-buttons">
-      <button class="sangoma-form-button sangoma-form-button-cancel" type="button">Cancel</button>
-      <button class="sangoma-form-button sangoma-form-button-save" type="button">Save</button>
+    <div class="Salesforce Devops-form-buttons">
+      <button class="Salesforce Devops-form-button Salesforce Devops-form-button-cancel" type="button">Cancel</button>
+      <button class="Salesforce Devops-form-button Salesforce Devops-form-button-save" type="button">Save</button>
     </div>
   `;
   
@@ -222,7 +222,7 @@ async function showFormModal(targetInput) {
   // Accessibility: set ARIA attributes for dialog semantics
   modal.setAttribute('role', 'dialog');
   modal.setAttribute('aria-modal', 'true');
-  modal.setAttribute('aria-labelledby', 'sangoma-form-title');
+  modal.setAttribute('aria-labelledby', 'Salesforce Devops-form-title');
   
   // Store element to restore focus to after closing
   const previouslyFocused = document.activeElement;
@@ -279,12 +279,12 @@ async function showFormModal(targetInput) {
   // Attach keydown at document level so it captures while focus is within modal
   document.addEventListener('keydown', onKeydown, true);
   
-  console.log('Sangoma Form Helper: Modal created');
+  console.log('Salesforce Devops Form Helper: Modal created');
   
   // Get input elements
-  const projectInput = modal.querySelector('#sangoma-project');
-  const dateInput = modal.querySelector('#sangoma-date');
-  const nameInput = modal.querySelector('#sangoma-name');
+  const projectInput = modal.querySelector('#Salesforce Devops-project');
+  const dateInput = modal.querySelector('#Salesforce Devops-date');
+  const nameInput = modal.querySelector('#Salesforce Devops-name');
   
   // Set today's date as default
   const today = new Date().toISOString().split('T')[0];
@@ -298,16 +298,16 @@ async function showFormModal(targetInput) {
   }, 100);
   
   // Handle cancel button
-  const cancelButton = modal.querySelector('.sangoma-form-button-cancel');
+  const cancelButton = modal.querySelector('.Salesforce Devops-form-button-cancel');
   cancelButton.addEventListener('click', () => {
-    console.log('Sangoma Form Helper: Cancel clicked');
+    console.log('Salesforce Devops Form Helper: Cancel clicked');
     closeModal();
   });
   
   // Handle save button
-  const saveButton = modal.querySelector('.sangoma-form-button-save');
+  const saveButton = modal.querySelector('.Salesforce Devops-form-button-save');
   saveButton.addEventListener('click', () => {
-    console.log('Sangoma Form Helper: Save clicked');
+    console.log('Salesforce Devops Form Helper: Save clicked');
     const project = projectInput.value.trim();
     const date = dateInput.value;
     const name = nameInput.value.trim();
@@ -325,7 +325,7 @@ async function showFormModal(targetInput) {
     // Create the formatted subject line
     const subjectText = `${project} - ${formattedDate} - ${name}`;
     
-    console.log('Sangoma Form Helper: Setting value:', subjectText);
+    console.log('Salesforce Devops Form Helper: Setting value:', subjectText);
     
     // Set the value in the input field
     targetInput.value = subjectText;
@@ -342,7 +342,7 @@ async function showFormModal(targetInput) {
   // Handle clicking outside the modal
   overlay.addEventListener('click', (e) => {
     if (e.target === overlay) {
-      console.log('Sangoma Form Helper: Clicked outside modal');
+      console.log('Salesforce Devops Form Helper: Clicked outside modal');
       closeModal();
     }
   });
@@ -358,8 +358,8 @@ if (document.readyState === 'loading') {
 // Re-initialize if the page changes (for single-page applications)
 const observer = new MutationObserver(() => {
   const subjectInput = document.querySelector('input[name="sf_devops__Subject__c"]');
-  if (subjectInput && !document.querySelector('.sangoma-helper-button')) {
-    console.log('Sangoma Form Helper: Re-initializing after DOM change');
+  if (subjectInput && !document.querySelector('.Salesforce Devops-helper-button')) {
+    console.log('Salesforce Devops Form Helper: Re-initializing after DOM change');
     addHelperButton(subjectInput);
   }
 });

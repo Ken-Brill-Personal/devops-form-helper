@@ -1,4 +1,4 @@
-# Sangoma Form Helper
+# Salesforce Devops Form Helper
 
 A Chrome extension that streamlines creating standardized Salesforce subject lines. It overlays a helper button next to the `sf_devops__Subject__c` field on Salesforce Lightning pages, opens a guided modal, optionally fetches Jira tickets, and formats the subject as `KEY Summary - MM/DD/YYYY - Your Name`.
 
