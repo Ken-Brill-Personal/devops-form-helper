@@ -1,0 +1,151 @@
+/* Modal overlay */
+.sangoma-form-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+  pointer-events: auto;
+}
+
+/* Modal container */
+.sangoma-form-modal {
+  background: white;
+  border-radius: 8px;
+  padding: 24px;
+  width: 90%;
+  max-width: 500px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 10px 15px rgba(0, 0, 0, 0.1);
+  pointer-events: auto;
+}
+
+/* Modal header */
+.sangoma-form-header {
+  margin-bottom: 20px;
+}
+
+.sangoma-form-header h2 {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 600;
+  color: #333;
+}
+
+/* Subtle hint under the title */
+.sangoma-form-hint {
+  margin-top: 4px;
+  font-size: 12px;
+  color: #666;
+}
+
+/* Form group */
+.sangoma-form-group {
+  margin-bottom: 16px;
+}
+
+.sangoma-form-group label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 500;
+  color: #333;
+  font-size: 14px;
+}
+
+.sangoma-form-group input,
+.sangoma-form-group select {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+  box-sizing: border-box;
+  pointer-events: auto;
+  cursor: pointer;
+  background-color: white;
+}
+
+.sangoma-form-group input[type="date"] {
+  cursor: text;
+}
+
+.sangoma-form-group input:focus,
+.sangoma-form-group select:focus {
+  outline: none;
+  border-color: #0070d2;
+  box-shadow: 0 0 0 3px rgba(0, 112, 210, 0.1);
+  pointer-events: auto;
+}
+
+/* Button container */
+.sangoma-form-buttons {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+  margin-top: 24px;
+}
+
+/* Buttons */
+.sangoma-form-button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.sangoma-form-button-cancel {
+  background-color: #f3f3f3;
+  color: #333;
+}
+
+.sangoma-form-button-cancel:hover {
+  background-color: #e5e5e5;
+}
+
+.sangoma-form-button-save {
+  background-color: #0070d2;
+  color: white;
+}
+
+.sangoma-form-button-save:hover {
+  background-color: #005fb2;
+}
+
+.sangoma-form-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Helper button (floating) */
+.sangoma-helper-button-wrapper {
+  position: fixed;
+  z-index: 9999;
+  pointer-events: none;
+}
+
+.sangoma-helper-button {
+  background: #0070d2;
+  border: none;
+  border-radius: 4px;
+  padding: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  transition: background-color 0.2s;
+  pointer-events: auto;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.sangoma-helper-button:hover,
+.sangoma-helper-button:focus {
+  background-color: #005fb2;
+}

@@ -1,0 +1,30 @@
+{
+  "manifest_version": 3,
+  "name": "Sangoma Form Helper",
+  "version": "1.595",
+  "description": "Adds a guided form popup for Sangoma subject field",
+  "permissions": [
+    "activeTab",
+    "storage"
+  ],
+  "host_permissions": [
+    "https://*.atlassian.net/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "options_page": "settings.html",
+  "content_scripts": [
+    {
+      "matches": ["https://*.lightning.force.com/*"],
+      "js": ["content.js"],
+      "css": ["styles.css"]
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": ["styles.css"],
+      "matches": ["https://*.lightning.force.com/*"]
+    }
+  ]
+}
